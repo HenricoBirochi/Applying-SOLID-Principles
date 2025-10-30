@@ -10,36 +10,48 @@ Utilizando do conceito do OCP, crie uma interface e classes que implementam a me
 tipo de exame, uma nova classe seja adicionada, implementando métodos de uma interface padrão para exames.
 
 '''
+from abc import ABC, abstractmethod
+
+# Exemplo de uso:
+class Exames(ABC):
+    @abstractmethod
+    def __init__(self, tipo: str) -> None: pass
+
+    @abstractmethod
+    def verifica_condicoes_exame(self, exame: Exames) -> True: pass
+
+class ExameDeSangue(Exames):
+    def __init__(self, tipo='sangue') -> None:
+        self.tipo = tipo
+
+    def verifica_condicoes_exame(self, exame: Exames) -> True:
+        # implemente as condições específicas do exame de sangue
+        return True
+
+class ExameDeRaioX(Exames):
+    def __init__(self, tipo='raio-x') -> None:
+        self.tipo = tipo
+
+    def verifica_condicoes_exame(self, exame: Exames) -> True:
+        # implemente as condições específicas do exame de raio-x
+        return True
 
 
 class AprovaExame:
-    def aprovar_solicitacao_exame(self, exame):
+    def aprovar_solicitacao_exame(self, exame: Exames) -> None:
 
-        if exame_sangue.tipo == "sangue":
-            if aprovador.verifica_condicoes_exame_sangue(exame_sangue):
+        if exame.tipo == "sangue":
+            if exame.verifica_condicoes_exame(exame):
                 print("Exame sanguíneo aprovado!")
 
-        elif exame_raio_x.tipo == "raio-x":
-            if aprovador.verifica_condicoes_raio_x(exame_raio_x):
+        elif exame.tipo == "raio-x":
+            if exame.verifica_condicoes_exame(exame):
                 print("Raio-X aprovado!")
                 pass
 
-    def verifica_condicoes_exame_sangue(self, exame):
-        # implemente as condições específicas do exame de sangue
-        pass
-
-    def verifica_condicoes_raio_x(self, exame):
-        # implemente as condições específicas do exame de raio-x
-        pass
-
-# Exemplo de uso:
-class Exame:
-    def __init__(self, tipo):
-        self.tipo = tipo
-
-exame_sangue = Exame("sangue")
-exame_raio_x = Exame("raio-x")
+exame_de_sangue = ExameDeSangue()
+exame_de_raio_x = ExameDeRaioX()
 
 aprovador = AprovaExame()
-
-
+aprovador.aprovar_solicitacao_exame(exame_de_sangue)
+aprovador.aprovar_solicitacao_exame(exame_de_raio_x)

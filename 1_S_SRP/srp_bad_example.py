@@ -7,12 +7,14 @@ Seguindo o conceito do Princípio da Responsabilidade única, organize essa clas
 classes com suas devidas responsabilidades.
 
 '''
-
-
-class TaskHandler:
+class NotificatorHandler:
     def conect_api():
         pass
 
+    def send_notification():
+        pass
+
+class TaskHandler:
     def create_task():
         pass
 
@@ -22,12 +24,9 @@ class TaskHandler:
     def remove_task():
         pass
 
-    def send_notification():
-        pass
-
+class ReportHandler:
     def generate_report():
         pass
 
     def send_report():
         pass
-
